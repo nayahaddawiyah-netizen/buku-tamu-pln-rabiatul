@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Buku Tamu Digital PLN</title>
 
     <style>
@@ -11,13 +10,18 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #003f73, #008fd5);
+            /* Background Gelam Bertema Petir */
+            background: #020b18 url('https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
             color: white;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
         }
 
         nav {
@@ -26,6 +30,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            background: rgba(2, 11, 24, 0.6);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 210, 255, 0.2);
         }
 
         .logo {
@@ -35,28 +42,39 @@
         }
 
         .logo-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: #fff000;
-            color: #ff8c00;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff9d00, #ff5500);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 27px;
+            font-size: 22px;
+            box-shadow: 0 0 15px #ff9d00;
         }
 
         .logo h2 {
             font-size: 20px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
         }
 
         .login-btn {
             text-decoration: none;
-            background: white;
-            color: #00558e;
-            padding: 12px 22px;
-            border-radius: 9px;
+            background: rgba(0, 136, 255, 0.2);
+            color: white;
+            padding: 10px 22px;
+            border-radius: 8px;
             font-weight: bold;
+            border: 1px solid #00d2ff;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #00d2ff;
+            color: #000;
+            box-shadow: 0 0 20px #00d2ff;
         }
 
         .hero {
@@ -70,65 +88,101 @@
 
         .hero-text {
             max-width: 600px;
+            flex: 1;
         }
 
-        .hero-text h1 {
-            font-size: 50px;
-            line-height: 1.15;
+        /* Container & Efek Teks Berjalan */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
             margin-bottom: 20px;
         }
 
-        .hero-text h1 span {
-            color: #fff000;
+        .marquee-text {
+            display: inline-block;
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #ffffff;
+            /* Glow Petir Biru */
+            text-shadow: 0 0 10px #00d2ff, 0 0 20px #00d2ff, 0 0 40px #0088ff;
+            animation: marquee 12s linear infinite;
+        }
+
+        .marquee-text span {
+            color: #ffffff;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
 
         .hero-text p {
-            font-size: 18px;
+            font-size: 16px;
             line-height: 1.7;
-            opacity: .9;
+            color: #cfd8dc;
             margin-bottom: 30px;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
         }
 
         .hero-btn {
             display: inline-block;
-            background: #fff000;
-            color: #004b80;
+            background: linear-gradient(90deg, #d47a00, #ff9d00);
+            color: #fff;
             text-decoration: none;
-            padding: 15px 28px;
-            border-radius: 10px;
+            padding: 14px 28px;
+            border-radius: 8px;
             font-weight: bold;
+            border: 1px solid #ffaa00;
+            box-shadow: 0 0 15px rgba(255, 157, 0, 0.5);
+            transition: all 0.3s ease;
         }
 
+        .hero-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(255, 157, 0, 0.9);
+        }
+
+        /* Kartu Kanan ala Petir Metalik */
         .hero-card {
             width: 380px;
             padding: 40px;
-            background: rgba(255,255,255,.13);
-            border: 1px solid rgba(255,255,255,.25);
-            border-radius: 25px;
+            background: rgba(10, 25, 50, 0.7);
+            border: 2px solid #00d2ff;
+            border-radius: 20px;
             text-align: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.25), inset 0 0 15px rgba(0, 210, 255, 0.15);
         }
 
         .hero-card .big-icon {
-            width: 110px;
-            height: 110px;
-            margin: auto auto 25px;
-            border-radius: 25px;
-            background: #fff000;
-            color: #ff8c00;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 25px;
+            background: rgba(0, 136, 255, 0.2);
+            border: 2px solid #00d2ff;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 60px;
+            font-size: 45px;
+            color: #ffcc00;
+            text-shadow: 0 0 15px #ffcc00;
+            box-shadow: 0 0 20px #00d2ff;
         }
 
         .hero-card h2 {
             margin-bottom: 10px;
+            font-size: 24px;
+            text-shadow: 0 0 10px #00d2ff;
         }
 
         .hero-card p {
-            opacity: .85;
+            color: #b0bec5;
             line-height: 1.6;
+            font-size: 14px;
         }
 
         footer {
@@ -138,18 +192,14 @@
             right: 0;
             text-align: center;
             font-size: 13px;
-            opacity: .7;
+            color: #b0bec5;
+            text-shadow: 0 0 5px #000;
         }
 
         @media(max-width: 800px) {
-
             .hero {
                 flex-direction: column;
                 text-align: center;
-            }
-
-            .hero-text h1 {
-                font-size: 36px;
             }
 
             .hero-card {
@@ -163,32 +213,24 @@
 <body>
 
 <nav>
-
     <div class="logo">
-
-        <div class="logo-icon">
-            ⚡
-        </div>
-
+        <div class="logo-icon">⚡</div>
         <h2>Buku Tamu Digital PLN</h2>
-
     </div>
 
     <a href="{{ route('petugas.login') }}" class="login-btn">
         Login Petugas
     </a>
-
 </nav>
 
-
 <section class="hero">
-
     <div class="hero-text">
-
-        <h1>
-            Selamat Datang di
-            <span>Buku Tamu Digital PLN</span>
-        </h1>
+        <!-- Efek Teks Berjalan -->
+        <div class="marquee-container">
+            <h1 class="marquee-text">
+                Selamat Datang di <span>Buku Tamu Digital PLN</span>
+            </h1>
+        </div>
 
         <p>
             Sistem pencatatan kunjungan tamu secara digital
@@ -197,30 +239,20 @@
         </p>
 
         <a href="{{ route('petugas.login') }}" class="hero-btn">
-            🔐 Masuk sebagai Petugas
+            ⚡ Masuk sebagai Petugas
         </a>
-
     </div>
 
-
     <div class="hero-card">
-
-        <div class="big-icon">
-            ⚡
-        </div>
-
+        <div class="big-icon">⚡</div>
         <h2>PLN Kuala Simpang</h2>
-
         <p>
             Sistem Buku Tamu Digital
             untuk pelayanan dan pencatatan
             kunjungan tamu.
         </p>
-
     </div>
-
 </section>
-
 
 <footer>
     © 2026 Buku Tamu Digital PLN

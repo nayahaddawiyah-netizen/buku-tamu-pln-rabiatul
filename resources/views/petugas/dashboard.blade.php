@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard Petugas - Buku Tamu PLN</title>
+    <title>Dashboard | Buku Tamu PLN</title>
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -16,431 +19,335 @@
         }
 
         body {
-            background: #f1f4f8;
-            color: #243b53;
+            background: #eef2f6;
+            color: #334e68;
+        }
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
         }
 
         /* =========================
            SIDEBAR
-        ========================== */
+        ========================= */
 
         .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-
             width: 250px;
-            height: 100vh;
-
             background: linear-gradient(
                 180deg,
-                #124a75,
-                #17699c
+                #244f70,
+                #2e6388
             );
-
             color: white;
-            padding: 25px 17px;
-
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
             overflow-y: auto;
         }
 
         .brand {
             text-align: center;
-            padding-bottom: 25px;
-            border-bottom: 1px solid rgba(255,255,255,.20);
+            padding: 25px 15px;
+            border-bottom: 1px solid rgba(255,255,255,.15);
         }
 
-        .brand-icon {
-            width: 60px;
-            height: 60px;
-
-            margin: auto;
-
+        .logo {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 12px;
+            background: #ffd429;
+            border-radius: 0 0 18px 18px;
             display: flex;
-            align-items: center;
             justify-content: center;
-
-            border-radius: 16px;
-
-            background: #ffdf00;
-            color: #ff8a00;
-
-            font-size: 32px;
-
-            box-shadow: 0 8px 20px rgba(0,0,0,.15);
+            align-items: center;
+            font-size: 35px;
         }
 
         .brand h2 {
-            margin-top: 13px;
-            font-size: 20px;
+            font-size: 21px;
+            font-weight: bold;
         }
 
         .brand p {
+            font-size: 14px;
+            color: #d7e3ec;
             margin-top: 5px;
-            font-size: 13px;
-            opacity: .85;
         }
 
         .menu {
-            margin-top: 28px;
+            padding: 28px 16px;
         }
 
         .menu a {
             display: flex;
             align-items: center;
             gap: 12px;
-
             color: white;
             text-decoration: none;
-
-            padding: 15px 17px;
-            margin-bottom: 8px;
-
-            border-radius: 10px;
-
+            padding: 15px 18px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            font-size: 16px;
             transition: .2s;
         }
 
         .menu a:hover,
         .menu a.active {
-            background: rgba(255,255,255,.20);
+            background: rgba(255,255,255,.17);
         }
 
-        .logout {
-            margin-top: 35px;
+        .logout-form {
+            padding: 0 16px;
         }
 
-        .logout button {
+        .btn-logout {
             width: 100%;
-
+            background: #ef3340;
+            color: white;
             border: none;
-            border-radius: 10px;
-
-            padding: 14px;
-
-            background: #e73545;
-            color: white;
-
-            font-weight: bold;
+            padding: 15px;
+            border-radius: 12px;
             cursor: pointer;
-
-            transition: .2s;
-        }
-
-        .logout button:hover {
-            background: #c92837;
-        }
-
-
-        /* =========================
-           MAIN
-        ========================== */
-
-        .main {
-            margin-left: 250px;
-            min-height: 100vh;
-        }
-
-
-        /* =========================
-           TOPBAR
-        ========================== */
-
-        .topbar {
-            height: 76px;
-
-            background: white;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 0 35px;
-
-            box-shadow: 0 2px 12px rgba(0,0,0,.08);
-        }
-
-        .topbar h2 {
-            color: #1d4968;
-            font-size: 25px;
-        }
-
-        .user {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .user-info {
-            text-align: right;
-        }
-
-        .user-info strong {
             font-size: 15px;
-            color: #111;
-        }
-
-        .user-info small {
-            color: #555;
-        }
-
-        .avatar {
-            width: 45px;
-            height: 45px;
-
-            border-radius: 50%;
-
-            background: #1b6396;
-            color: white;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 18px;
             font-weight: bold;
+        }
+
+        .btn-logout:hover {
+            opacity: .9;
         }
 
 
         /* =========================
            CONTENT
-        ========================== */
+        ========================= */
 
-        .content {
-            padding: 35px;
+        .main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 32px;
         }
 
-        .welcome {
-            background: linear-gradient(
-                100deg,
-                #1d5a85,
-                #1690c4
-            );
-
-            color: white;
-
-            border-radius: 18px;
-
-            padding: 28px 30px;
-
-            margin-bottom: 28px;
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
-        .welcome h1 {
-            font-size: 29px;
-            margin-bottom: 8px;
+        .topbar h1 {
+            font-size: 28px;
+            color: #244a66;
         }
 
-        .welcome p {
-            font-size: 16px;
-            opacity: .92;
+        .topbar p {
+            margin-top: 6px;
+            color: #718096;
+        }
+
+        .user-box {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.05);
         }
 
 
         /* =========================
-           STATISTIC
-        ========================== */
+           STATISTIK
+        ========================= */
 
         .stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
-
             margin-bottom: 28px;
         }
 
         .stat-card {
             background: white;
-
-            border-radius: 16px;
-
-            padding: 23px;
-
-            box-shadow: 0 6px 22px rgba(0,0,0,.07);
-
+            border-radius: 18px;
+            padding: 22px;
             display: flex;
             align-items: center;
             gap: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.07);
         }
 
         .stat-icon {
-            width: 58px;
-            height: 58px;
-
-            border-radius: 15px;
-
-            background: #e7f3fa;
-
+            width: 60px;
+            height: 60px;
+            border-radius: 17px;
+            background: #e5f0f7;
             display: flex;
             align-items: center;
             justify-content: center;
-
-            font-size: 27px;
+            font-size: 28px;
         }
 
-        .stat-card h3 {
+        .stat-info h3 {
             font-size: 14px;
             color: #687684;
             margin-bottom: 5px;
         }
 
-        .stat-card strong {
-            font-size: 28px;
-            color: #173f5c;
+        .stat-info strong {
+            font-size: 27px;
+            color: #244a66;
         }
 
 
         /* =========================
-           TABLE CARD
-        ========================== */
+           TABLE
+        ========================= */
 
         .table-card {
             background: white;
-
             border-radius: 18px;
-
             padding: 25px;
-
-            box-shadow: 0 6px 22px rgba(0,0,0,.07);
+            box-shadow: 0 8px 25px rgba(0,0,0,.07);
+            overflow-x: auto;
         }
 
         .table-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-
             margin-bottom: 22px;
         }
 
         .table-header h2 {
-            color: #1b4967;
-            font-size: 22px;
+            font-size: 23px;
+            color: #244a66;
         }
 
         .add-btn {
             text-decoration: none;
-
-            background: #1675ad;
+            background: #21658f;
             color: white;
-
-            padding: 12px 18px;
-
-            border-radius: 9px;
-
+            padding: 13px 22px;
+            border-radius: 10px;
             font-weight: bold;
+            transition: .2s;
         }
 
         .add-btn:hover {
-            background: #105f8e;
-        }
-
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
+            background: #184f72;
         }
 
         table {
             width: 100%;
-            min-width: 850px;
-
             border-collapse: collapse;
+            min-width: 1000px;
         }
 
         thead {
-            background: #eaf2f7;
+            background: #e5edf3;
         }
 
         th {
-            color: #1c4059;
-            font-size: 13px;
-
-            padding: 15px 12px;
-
             text-align: left;
-
-            border-bottom: 2px solid #d7e1e8;
+            padding: 15px 13px;
+            font-size: 12px;
+            letter-spacing: .5px;
+            color: #334e68;
         }
 
         td {
-            padding: 16px 12px;
-
-            border-bottom: 1px solid #e4eaf0;
-
+            padding: 15px 13px;
+            border-bottom: 1px solid #e2e8f0;
             font-size: 14px;
-            color: #4b5c69;
+            color: #4a5568;
         }
 
-        tbody tr:hover {
-            background: #f8fbfd;
+        tr:hover {
+            background: #f8fafc;
         }
 
-        .no {
+        .no-antrian {
             font-weight: bold;
-            color: #1a5b85;
+            color: #244a66;
         }
 
-        .badge {
-            display: inline-block;
 
-            padding: 7px 12px;
-
-            border-radius: 20px;
-
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .badge-adm {
-            background: #e6f1ff;
-            color: #2165a5;
-        }
-
-        .badge-teknis {
-            background: #fff3dc;
-            color: #c47a00;
-        }
-
-        .badge-transaksi {
-            background: #eee7ff;
-            color: #6941b5;
-        }
-
-        .badge-undangan {
-            background: #e1f8ee;
-            color: #168554;
-        }
+        /* =========================
+           STATUS
+        ========================= */
 
         .status {
             display: inline-block;
-
             padding: 7px 13px;
-
             border-radius: 20px;
-
             font-size: 12px;
             font-weight: bold;
         }
 
-        .selesai {
-            background: #dff7e9;
-            color: #16854d;
+        .status-selesai {
+            background: #dcefe4;
+            color: #23834d;
         }
 
-        .belum {
-            background: #ffe4e6;
-            color: #c22739;
+        .status-belum {
+            background: #f8dede;
+            color: #bd3945;
+        }
+
+
+        /* =========================
+           BUTTON AKSI
+        ========================= */
+
+        .aksi {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .btn-edit {
+            background: #f0a500;
+            color: white;
+            text-decoration: none;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 7px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .btn-hapus {
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 7px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .btn-edit:hover,
+        .btn-hapus:hover {
+            opacity: .85;
         }
 
         .empty {
             text-align: center;
             padding: 30px;
-            color: #8a98a5;
+            color: #718096;
+        }
+
+        .alert-success {
+            background: #dcefe4;
+            color: #23834d;
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
 
 
         /* =========================
            RESPONSIVE
-        ========================== */
+        ========================= */
 
         @media (max-width: 900px) {
 
@@ -450,6 +357,8 @@
 
             .main {
                 margin-left: 210px;
+                width: calc(100% - 210px);
+                padding: 20px;
             }
 
             .stats {
@@ -461,25 +370,43 @@
         @media (max-width: 650px) {
 
             .sidebar {
-                position: relative;
-                width: 100%;
-                height: auto;
+                width: 75px;
+            }
+
+            .brand h2,
+            .brand p,
+            .menu span {
+                display: none;
+            }
+
+            .menu {
+                padding: 20px 8px;
+            }
+
+            .menu a {
+                justify-content: center;
+                padding: 15px 5px;
             }
 
             .main {
-                margin-left: 0;
+                margin-left: 75px;
+                width: calc(100% - 75px);
+                padding: 15px;
             }
 
             .topbar {
-                padding: 0 20px;
+                display: block;
             }
 
-            .content {
-                padding: 20px;
+            .user-box {
+                margin-top: 15px;
+                display: inline-block;
             }
 
-            .user-info {
-                display: none;
+            .table-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
             }
 
         }
@@ -490,146 +417,129 @@
 
 <body>
 
+<div class="wrapper">
 
-<!-- ================= SIDEBAR ================= -->
 
-<div class="sidebar">
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
 
-    <div class="brand">
+    <aside class="sidebar">
 
-        <div class="brand-icon">
-            ⚡
+        <div class="brand">
+
+            <div class="logo">
+                ⚡
+            </div>
+
+            <h2>BUKU TAMU PLN</h2>
+
+            <p>Panel Petugas / Satpam</p>
+
         </div>
 
-        <h2>BUKU TAMU PLN</h2>
 
-        <p>Panel Petugas / Satpam</p>
+        <nav class="menu">
 
-    </div>
-
-
-    <div class="menu">
-
-        <a
-            href="{{ route('petugas.dashboard') }}"
-            class="active"
-        >
-            🏠
-            Dashboard
-        </a>
-
-        <a href="#tabel-tamu">
-            📝
-            Input Tamu
-        </a>
-
-        <a href="#tabel-tamu">
-            👥
-            Data Tamu
-        </a>
-
-        <a href="#tabel-tamu">
-            📊
-            Laporan
-        </a>
-
-    </div>
+            <a
+                href="{{ route('petugas.dashboard') }}"
+                class="{{ request()->routeIs('petugas.dashboard') ? 'active' : '' }}"
+            >
+                <span>🏠</span>
+                <span>Dashboard</span>
+            </a>
 
 
-    <div class="logout">
+            <a
+                href="{{ route('petugas.input-tamu') }}"
+                class="{{ request()->routeIs('petugas.input-tamu') ? 'active' : '' }}"
+            >
+                <span>📝</span>
+                <span>Input Tamu</span>
+            </a>
+
+
+            <a
+                href="{{ route('petugas.data-tamu') }}"
+                class="{{ request()->routeIs('petugas.data-tamu') ? 'active' : '' }}"
+            >
+                <span>👥</span>
+                <span>Data Tamu</span>
+            </a>
+
+
+            <a
+                href="{{ route('petugas.laporan') }}"
+                class="{{ request()->routeIs('petugas.laporan') ? 'active' : '' }}"
+            >
+                <span>📊</span>
+                <span>Laporan</span>
+            </a>
+
+        </nav>
+
 
         <form
             action="{{ route('petugas.logout') }}"
             method="POST"
+            class="logout-form"
         >
+
             @csrf
 
-            <button type="submit">
+            <button
+                type="submit"
+                class="btn-logout"
+            >
                 🚪 Keluar
             </button>
 
         </form>
 
-    </div>
-
-</div>
+    </aside>
 
 
 
-<!-- ================= MAIN ================= -->
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
 
-<div class="main">
-
-
-    <!-- TOPBAR -->
-
-    <div class="topbar">
-
-        <h2>Dashboard Petugas</h2>
+    <main class="main">
 
 
-        <div class="user">
+        <!-- TOPBAR -->
 
-            <div class="user-info">
+        <div class="topbar">
 
-                <strong>
+            <div>
+
+                <h1>Dashboard</h1>
+
+                <p>
+                    Selamat datang,
                     {{ Auth::user()->nama ?? Auth::user()->username }}
-                </strong>
-
-                <br>
-
-                <small>
-                    Petugas / Satpam
-                </small>
+                </p>
 
             </div>
 
 
-            <div class="avatar">
+            <div class="user-box">
 
-                {{
-                    strtoupper(
-                        substr(
-                            Auth::user()->username,
-                            0,
-                            1
-                        )
-                    )
-                }}
+                👤
+                {{ Auth::user()->username }}
 
             </div>
 
         </div>
 
-    </div>
 
 
-
-    <!-- CONTENT -->
-
-    <div class="content">
-
-
-        <!-- WELCOME -->
-
-        <div class="welcome">
-
-            <h1>
-                Selamat Datang 👋
-            </h1>
-
-            <p>
-                Dashboard Buku Tamu Digital PLN untuk mengelola
-                antrean dan kunjungan tamu.
-            </p>
-
-        </div>
-
-
-
-        <!-- STATISTIK -->
+        <!-- =========================
+             STATISTIK
+        ========================== -->
 
         <div class="stats">
+
 
             <div class="stat-card">
 
@@ -637,15 +547,18 @@
                     👥
                 </div>
 
-                <div>
+                <div class="stat-info">
 
                     <h3>Total Tamu</h3>
 
-                    <strong>4</strong>
+                    <strong>
+                        {{ $totalTamu }}
+                    </strong>
 
                 </div>
 
             </div>
+
 
 
             <div class="stat-card">
@@ -654,15 +567,18 @@
                     ⏳
                 </div>
 
-                <div>
+                <div class="stat-info">
 
                     <h3>Belum Selesai</h3>
 
-                    <strong>1</strong>
+                    <strong>
+                        {{ $belum }}
+                    </strong>
 
                 </div>
 
             </div>
+
 
 
             <div class="stat-card">
@@ -671,26 +587,44 @@
                     ✅
                 </div>
 
-                <div>
+                <div class="stat-info">
 
                     <h3>Sudah Selesai</h3>
 
-                    <strong>3</strong>
+                    <strong>
+                        {{ $selesai }}
+                    </strong>
 
                 </div>
 
             </div>
 
+
         </div>
 
 
 
-        <!-- TABEL TAMU -->
+        <!-- =========================
+             PESAN SUKSES
+        ========================== -->
 
-        <div
-            class="table-card"
-            id="tabel-tamu"
-        >
+        @if(session('success'))
+
+            <div class="alert-success">
+
+                ✅ {{ session('success') }}
+
+            </div>
+
+        @endif
+
+
+
+        <!-- =========================
+             TABEL DATA TAMU
+        ========================== -->
+
+        <div class="table-card">
 
             <div class="table-header">
 
@@ -698,8 +632,9 @@
                     Daftar Antrian / Tamu
                 </h2>
 
+
                 <a
-                    href="#"
+                    href="{{ route('petugas.input-tamu') }}"
                     class="add-btn"
                 >
                     + Tambah Tamu
@@ -708,225 +643,202 @@
             </div>
 
 
-            <div class="table-responsive">
+            <table>
 
-                <table>
+                <thead>
 
-                    <thead>
+                    <tr>
 
-                        <tr>
+                        <th>NO ANTRIAN</th>
+                        <th>TANGGAL / JAM</th>
+                        <th>NAMA</th>
+                        <th>PERIHAL</th>
+                        <th>KELUHAN</th>
+                        <th>KET</th>
+                        <th>AKSI</th>
 
-                            <th>
-                                NO ANTRIAN
-                            </th>
+                    </tr>
 
-                            <th>
-                                TANGGAL / JAM
-                            </th>
-
-                            <th>
-                                NAMA
-                            </th>
-
-                            <th>
-                                PERIHAL
-                            </th>
-
-                            <th>
-                                KELUHAN
-                            </th>
-
-                            <th>
-                                KET
-                            </th>
-
-                        </tr>
-
-                    </thead>
+                </thead>
 
 
-                    <tbody>
+                <tbody>
 
-
-                        <!-- DATA 1 -->
+                    @forelse($tamuTerbaru as $tamu)
 
                         <tr>
 
-                            <td class="no">
-                                001
+                            <!-- NO ANTRIAN -->
+
+                            <td class="no-antrian">
+
+                                {{ str_pad(
+                                    $tamu->no_antrian,
+                                    3,
+                                    '0',
+                                    STR_PAD_LEFT
+                                ) }}
+
                             </td>
 
+
+                            <!-- TANGGAL -->
+
                             <td>
-                                20/08/2026
+
+                                {{ \Carbon\Carbon::parse(
+                                    $tamu->tanggal_jam
+                                )->format('d/m/Y') }}
+
                                 <br>
-                                08:15
-                            </td>
 
-                            <td>
-                                Ahmad
-                            </td>
-
-                            <td>
-
-                                <span class="badge badge-adm">
-                                    ADM
-                                </span>
+                                {{ \Carbon\Carbon::parse(
+                                    $tamu->tanggal_jam
+                                )->format('H:i') }}
 
                             </td>
 
-                            <td>
-                                -
-                            </td>
+
+                            <!-- NAMA -->
 
                             <td>
 
-                                <span class="status selesai">
-                                    SELESAI
-                                </span>
+                                {{ $tamu->nama }}
 
                             </td>
+
+
+                            <!-- PERIHAL -->
+
+                            <td>
+
+                                {{ $tamu->perihal }}
+
+                            </td>
+
+
+                            <!-- KELUHAN -->
+
+                            <td>
+
+                                {{ $tamu->keluhan ?? '-' }}
+
+                            </td>
+
+
+                            <!-- STATUS -->
+
+                            <td>
+
+                                @if($tamu->ket === 'SELESAI')
+
+                                    <span class="status status-selesai">
+
+                                        SELESAI
+
+                                    </span>
+
+                                @else
+
+                                    <span class="status status-belum">
+
+                                        BELUM
+
+                                    </span>
+
+                                @endif
+
+                            </td>
+
+
+                            <!-- AKSI -->
+
+                            <td>
+
+                                <div class="aksi">
+
+
+                                    <!-- EDIT -->
+
+                                    <a
+                                        href="{{ route(
+                                            'petugas.tamu.edit',
+                                            $tamu->id
+                                        ) }}"
+                                        class="btn-edit"
+                                    >
+
+                                        ✏️ Edit
+
+                                    </a>
+
+
+
+                                    <!-- HAPUS -->
+
+                                    <form
+                                        action="{{ route(
+                                            'petugas.tamu.delete',
+                                            $tamu->id
+                                        ) }}"
+                                        method="POST"
+                                        onsubmit="return confirm('Yakin ingin menghapus data tamu ini?')"
+                                    >
+
+                                        @csrf
+
+                                        @method('DELETE')
+
+                                        <button
+                                            type="submit"
+                                            class="btn-hapus"
+                                        >
+
+                                            🗑 Hapus
+
+                                        </button>
+
+                                    </form>
+
+
+                                </div>
+
+                            </td>
+
 
                         </tr>
 
-
-
-                        <!-- DATA 2 -->
+                    @empty
 
                         <tr>
 
-                            <td class="no">
-                                002
-                            </td>
+                            <td
+                                colspan="7"
+                                class="empty"
+                            >
 
-                            <td>
-                                20/08/2026
-                                <br>
-                                09:00
-                            </td>
-
-                            <td>
-                                Budi
-                            </td>
-
-                            <td>
-
-                                <span class="badge badge-teknis">
-                                    TEKNIS
-                                </span>
-
-                            </td>
-
-                            <td>
-                                Gangguan listrik
-                            </td>
-
-                            <td>
-
-                                <span class="status belum">
-                                    BELUM
-                                </span>
+                                📭 Belum ada data tamu.
 
                             </td>
 
                         </tr>
 
+                    @endforelse
 
 
-                        <!-- DATA 3 -->
+                </tbody>
 
-                        <tr>
+            </table>
 
-                            <td class="no">
-                                003
-                            </td>
-
-                            <td>
-                                20/08/2026
-                                <br>
-                                10:15
-                            </td>
-
-                            <td>
-                                Citra
-                            </td>
-
-                            <td>
-
-                                <span class="badge badge-transaksi">
-                                    TRANSAKSI ENERGI
-                                </span>
-
-                            </td>
-
-                            <td>
-                                -
-                            </td>
-
-                            <td>
-
-                                <span class="status selesai">
-                                    SELESAI
-                                </span>
-
-                            </td>
-
-                        </tr>
-
-
-
-                        <!-- DATA 4 -->
-
-                        <tr>
-
-                            <td class="no">
-                                004
-                            </td>
-
-                            <td>
-                                20/08/2026
-                                <br>
-                                11:00
-                            </td>
-
-                            <td>
-                                Dinas Perhubungan
-                            </td>
-
-                            <td>
-
-                                <span class="badge badge-undangan">
-                                    UNDANGAN
-                                </span>
-
-                            </td>
-
-                            <td>
-                                -
-                            </td>
-
-                            <td>
-
-                                <span class="status selesai">
-                                    SELESAI
-                                </span>
-
-                            </td>
-
-                        </tr>
-
-
-                    </tbody>
-
-                </table>
-
-            </div>
 
         </div>
 
 
-    </div>
+    </main>
+
 
 </div>
 
 </body>
+
 </html>

@@ -393,14 +393,13 @@
             AKUN
         </div>
 
-        <form action="{{ route('logout') }}" method="POST" class="logout">
-            @csrf
+        <form action="{{ route('petugas.logout') }}" method="POST">
+    @csrf
 
-            <button type="submit">
-                🚪 &nbsp; Keluar
-            </button>
-
-        </form>
+    <button type="submit" class="btn-logout">
+        🚪 Keluar
+    </button>
+</form>
 
     </aside>
 
