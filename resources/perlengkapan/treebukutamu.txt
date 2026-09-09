@@ -1,0 +1,99 @@
+aplikasibukutamu/
+│
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       ├── Auth/
+│   │       │   └── ControllerAuthUser.php
+│   │       │
+│   │       ├── Dashboard/
+│   │       │   └── ControllerDashboardUser.php
+│   │       │
+│   │       ├── Guestbook/
+│   │       │   └── ControllerGuestbook.php
+│   │       ├── Landing/
+│   │       │   └── ControllerLanding.php
+│   │       │
+│   │       └── Laporan/
+│   │           └── ControllerLaporan.php
+│   │
+│   └── Models/
+│       ├── ModelUser.php
+│       └── Guest.php
+│
+├── bootstrap/
+│   ├── app.php
+│   └── providers.php
+│
+├── config/
+│   ├── app.php
+│   ├── auth.php
+│   └── database.php
+│
+├── database/
+│   ├── factories/
+│   │   └── GuestFactory.php
+│   │
+│   ├── migrations/
+│   │   └── 2026_01_01_000000_bukutamudigital1.php
+│   │
+│   └── seeders/
+│       ├── DatabaseSeeder.php
+│       └── bukutamuSeeder.php
+│
+├── public/
+│   ├── css/
+│   ├── js/
+│   └── uploads/
+│
+├── resources/
+│   └── views/
+│       │
+│       ├── layouts/
+│       │   │
+│       │   ├── apppetugas.blade.php
+│       │   ├── applanding.blade.php
+│       │   │
+│       │   ├── petugas/
+│       │   │   ├── navbar.blade.php
+│       │   │   ├── sidebar.blade.php
+│       │   │   └── footer.blade.php
+│       │   │
+│       │   └── landing/
+│       │       ├── navbar.blade.php
+│       │       └── footer.blade.php
+│       │
+│       ├── auth/
+│       │   └── login.blade.php
+│       │
+│       ├── guestbook/
+│       │   ├── index.blade.php
+│       │   └── success.blade.php
+│       │
+│       └── petugas/
+│           ├── dashboard/
+│           │   └── petugas.blade.php
+│           │
+│           ├── guests/
+│           │   ├── index.blade.php
+│           │   ├── show.blade.php
+│           │   └── edit.blade.php
+│           │
+│           └── laporan/
+│               ├── index.blade.php
+│               ├── detail.blade.php
+│               └── cetak.blade.php
+│
+├── routes/
+│   ├── console.php
+│   └── web.php
+│
+├── storage/
+│   └── app/
+│       └── public/
+│
+├── .env
+├── .env.example
+├── composer.json
+├── package.json
+└── README.md
