@@ -3,734 +3,990 @@
 @section('content')
 
 <div class="laporan-page">
+{{-- HEADER --}}
+<div class="page-header">
 
-    {{-- HEADER --}}
-    <div class="page-header">
+    <div class="header-content">
+        <h1>📊 Laporan Buku Tamu</h1>
+        <p>Laporan kunjungan tamu PLN</p>
+    </div>
 
+    <button
+        type="button"
+        onclick="window.print()"
+        class="btn-cetak"
+    >
+        🖨️ <span>Cetak</span>
+    </button>
+
+</div>
+
+{{-- FILTER --}}
+<div class="filter-card">
+
+    <div class="filter-title">
+        <div class="filter-title-icon">🔎</div>
         <div>
-            <h1>📊 Laporan Buku Tamu</h1>
-
-            <p>
-                Laporan kunjungan tamu PLN
-            </p>
+            <h2>Filter Laporan</h2>
+            <p>Pilih periode tanggal kunjungan</p>
         </div>
-
-        <button
-            type="button"
-            onclick="window.print()"
-            class="btn-cetak"
-        >
-            🖨️ Cetak
-        </button>
-
     </div>
 
+    <form
+        action="{{ route('petugas.laporan.index') }}"
+        method="GET"
+    >
 
-    {{-- FILTER --}}
-    <div class="filter-card">
+        <div class="filter-grid">
 
-        <form
-            action="{{ route('petugas.laporan.index') }}"
-            method="GET"
-        >
+            <div class="form-group">
 
-            <div class="filter-grid">
+                <label for="tanggal_mulai">
+                    Tanggal Mulai
+                </label>
 
-                <div class="form-group">
-
-                    <label>
-                        Tanggal Mulai
-                    </label>
-
-                    <input
-                        type="date"
-                        name="tanggal_mulai"
-                        value="{{ request('tanggal_mulai') }}"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Tanggal Selesai
-                    </label>
-
-                    <input
-                        type="date"
-                        name="tanggal_selesai"
-                        value="{{ request('tanggal_selesai') }}"
-                    >
-
-                </div>
-
-
-                <div class="filter-buttons">
-
-                    <button
-                        type="submit"
-                        class="btn-filter"
-                    >
-                        🔍 Filter
-                    </button>
-
-                    <a
-                        href="{{ route('petugas.laporan.index') }}"
-                        class="btn-reset"
-                    >
-                        ↻ Reset
-                    </a>
-
-                </div>
+                <input
+                    id="tanggal_mulai"
+                    type="date"
+                    name="tanggal_mulai"
+                    value="{{ request('tanggal_mulai') }}"
+                >
 
             </div>
 
-        </form>
+            <div class="form-group">
 
-    </div>
+                <label for="tanggal_selesai">
+                    Tanggal Selesai
+                </label>
 
+                <input
+                    id="tanggal_selesai"
+                    type="date"
+                    name="tanggal_selesai"
+                    value="{{ request('tanggal_selesai') }}"
+                >
 
-    {{-- RINGKASAN --}}
+            </div>
 
-    <div class="summary-card">
+            <div class="filter-buttons">
 
-        <div class="summary-icon">
-            👥
-        </div>
+                <button
+                    type="submit"
+                    class="btn-filter"
+                >
+                    🔍 <span>Filter</span>
+                </button>
 
-        <div>
+                <a
+                    href="{{ route('petugas.laporan.index') }}"
+                    class="btn-reset"
+                >
+                    ↻ <span>Reset</span>
+                </a>
 
-            <span>
-                Data Ditampilkan
-            </span>
-
-            <strong>
-                {{ $laporan->total() }} Tamu
-            </strong>
-
-        </div>
-
-    </div>
-
-
-    {{-- TABEL --}}
-
-    <div class="table-card">
-
-        <div class="table-header">
-
-            <div>
-                <h2>
-                    Data Kunjungan
-                </h2>
-
-                <p>
-                    Daftar tamu berdasarkan periode yang dipilih
-                </p>
             </div>
 
         </div>
 
+    </form>
 
-        <div class="table-wrapper">
+</div>
 
-            <table>
+{{-- RINGKASAN --}}
+<div class="summary-card">
 
-                <thead>
+    <div class="summary-icon">
+        👥
+    </div>
 
-                    <tr>
+    <div class="summary-content">
 
-                        <th>No</th>
+        <span>Data Ditampilkan</span>
 
-                        <th>Nama Tamu</th>
-
-                        <th>Instansi</th>
-
-                        <th>No. HP</th>
-
-                        <th>Keperluan</th>
-
-                        <th>Tanggal</th>
-
-                        <th>Jam Masuk</th>
-
-                        <th>Jam Keluar</th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                    @forelse($laporan as $tamu)
-
-                        <tr>
-
-                            <td>
-                                {{ $laporan->firstItem() + $loop->index }}
-                            </td>
-
-                            <td>
-                                <strong>
-                                    {{ $tamu->nama }}
-                                </strong>
-                            </td>
-
-                            <td>
-                                {{ $tamu->instansi ?? '-' }}
-                            </td>
-
-                            <td>
-                                {{ $tamu->no_hp ?? '-' }}
-                            </td>
-
-                            <td>
-                                {{ $tamu->keperluan }}
-                            </td>
-
-                            <td>
-                                {{ $tamu->tanggal_kunjungan?->format('d/m/Y') ?? '-' }}
-                            </td>
-
-                            <td>
-                                {{ $tamu->jam_masuk ?? '-' }}
-                            </td>
-
-                            <td>
-                                {{ $tamu->jam_keluar ?? '-' }}
-                            </td>
-
-                        </tr>
-
-                    @empty
-
-                        <tr>
-
-                            <td
-                                colspan="8"
-                                class="empty"
-                            >
-
-                                <div class="empty-icon">
-                                    📭
-                                </div>
-
-                                <strong>
-                                    Tidak ada data
-                                </strong>
-
-                                <p>
-                                    Tidak ditemukan data tamu pada periode tersebut.
-                                </p>
-
-                            </td>
-
-                        </tr>
-
-                    @endforelse
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-
-        {{-- PAGINATION --}}
-
-        @if($laporan->hasPages())
-
-            <div class="pagination">
-
-                {{ $laporan->links() }}
-
-            </div>
-
-        @endif
+        <strong>
+            {{ number_format($laporan->total(), 0, ',', '.') }}
+            <small>Tamu</small>
+        </strong>
 
     </div>
 
 </div>
 
+{{-- TABEL --}}
+<div class="table-card">
 
-<style>
+    <div class="table-header">
 
-/* =========================================
-   PAGE
-========================================= */
+        <div>
+            <h2>Data Kunjungan</h2>
+
+            <p>
+                Daftar tamu berdasarkan periode yang dipilih
+            </p>
+        </div>
+
+        @if(request('tanggal_mulai') || request('tanggal_selesai'))
+            <div class="filter-status">
+                📅 Periode aktif
+            </div>
+        @endif
+
+    </div>
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>No</th>
+                    <th>Nama Tamu</th>
+                    <th>Instansi</th>
+                    <th>No. HP</th>
+                    <th>Keperluan</th>
+                    <th>Tanggal</th>
+                    <th>Jam Masuk</th>
+                    <th>Jam Keluar</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @forelse($laporan as $tamu)
+
+                    <tr>
+
+                        <td class="col-no">
+                            {{ $laporan->firstItem() + $loop->index }}
+                        </td>
+
+                        <td class="col-nama">
+                            <strong>
+                                {{ $tamu->nama }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ $tamu->instansi ?? '-' }}
+                        </td>
+
+                        <td>
+                            {{ $tamu->no_hp ?? '-' }}
+                        </td>
+
+                        <td class="col-keperluan">
+                            {{ $tamu->keperluan }}
+                        </td>
+
+                        <td>
+                            {{ $tamu->tanggal_kunjungan?->format('d/m/Y') ?? '-' }}
+                        </td>
+
+                        <td>
+                            {{ $tamu->jam_masuk ?? '-' }}
+                        </td>
+
+                        <td>
+                            {{ $tamu->jam_keluar ?? '-' }}
+                        </td>
+
+                    </tr>
+
+                @empty
+
+                    <tr>
+
+                        <td
+                            colspan="8"
+                            class="empty"
+                        >
+
+                            <div class="empty-icon">
+                                📭
+                            </div>
+
+                            <strong>
+                                Tidak ada data
+                            </strong>
+
+                            <p>
+                                Tidak ditemukan data tamu pada periode tersebut.
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                @endforelse
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {{-- PAGINATION --}}
+    @if($laporan->hasPages())
+
+        <div class="pagination">
+
+            {{ $laporan->withQueryString()->links() }}
+
+        </div>
+
+    @endif
+
+</div>
+
+</div> <style>
+/* =========================================================
+RESET & BASE
+========================================================= */
 
 .laporan-page {
-    padding: 30px;
+width: 100%;
+max-width: 1600px;
+margin: 0 auto;
+padding: 30px;
+box-sizing: border-box;
+color: #263238;
 }
 
+.laporan-page *,
+.laporan-page *::before,
+.laporan-page *::after {
+box-sizing: border-box;
+}
 
-/* =========================================
-   HEADER
-========================================= */
+/* =========================================================
+HEADER
+========================================================= */
 
 .page-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 20px;
+margin-bottom: 24px;
+}
 
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    margin-bottom: 25px;
-
+.header-content {
+min-width: 0;
 }
 
 .page-header h1 {
-
-    margin: 0;
-
-    color: #244f70;
-
-    font-size: 28px;
-
+margin: 0;
+color: #244f70;
+font-size: 28px;
+font-weight: 700;
+line-height: 1.25;
 }
 
 .page-header p {
-
-    margin-top: 6px;
-
-    color: #777;
-
+margin: 7px 0 0;
+color: #7a858d;
+font-size: 14px;
 }
 
-
-/* =========================================
-   BUTTON CETAK
-========================================= */
+/* =========================================================
+BUTTON CETAK
+========================================================= */
 
 .btn-cetak {
-
-    border: none;
-
-    background: #244f70;
-
-    color: white;
-
-    padding: 12px 20px;
-
-    border-radius: 10px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 7px;
+flex-shrink: 0;
+min-height: 44px;
+padding: 11px 18px;
+border: 0;
+border-radius: 10px;
+background: #244f70;
+color: #fff;
+font-size: 14px;
+font-weight: 700;
+cursor: pointer;
+transition:
+background .2s ease,
+transform .2s ease,
+box-shadow .2s ease;
 }
 
 .btn-cetak:hover {
-
-    background: #1c405b;
-
+background: #1c405b;
+box-shadow: 0 5px 14px rgba(36, 79, 112, .18);
+transform: translateY(-1px);
 }
 
+.btn-cetak:active {
+transform: translateY(0);
+}
 
-/* =========================================
-   FILTER
-========================================= */
+/* =========================================================
+CARD
+========================================================= */
+
+.filter-card,
+.summary-card,
+.table-card {
+background: #fff;
+border: 1px solid rgba(36, 79, 112, .06);
+box-shadow: 0 4px 20px rgba(0, 0, 0, .06);
+}
+
+/* =========================================================
+FILTER
+========================================================= */
 
 .filter-card {
+padding: 22px;
+margin-bottom: 18px;
+border-radius: 15px;
+}
 
-    background: white;
+.filter-title {
+display: flex;
+align-items: center;
+gap: 12px;
+margin-bottom: 18px;
+}
 
-    padding: 22px;
+.filter-title-icon {
+width: 42px;
+height: 42px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+border-radius: 11px;
+background: #eaf3f9;
+font-size: 19px;
+}
 
-    border-radius: 15px;
+.filter-title h2 {
+margin: 0;
+color: #244f70;
+font-size: 17px;
+line-height: 1.3;
+}
 
-    box-shadow:
-        0 4px 20px rgba(0,0,0,.07);
-
-    margin-bottom: 20px;
-
+.filter-title p {
+margin: 3px 0 0;
+color: #89939a;
+font-size: 12px;
 }
 
 .filter-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr auto;
-
-    gap: 15px;
-
-    align-items: end;
-
+display: grid;
+grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+gap: 14px;
+align-items: end;
 }
 
 .form-group {
-
-    display: flex;
-
-    flex-direction: column;
-
+display: flex;
+flex-direction: column;
+min-width: 0;
 }
 
 .form-group label {
-
-    margin-bottom: 7px;
-
-    font-size: 14px;
-
-    font-weight: bold;
-
-    color: #444;
-
+margin-bottom: 7px;
+color: #3e4b53;
+font-size: 13px;
+font-weight: 700;
 }
 
 .form-group input {
+width: 100%;
+height: 44px;
+padding: 0 12px;
+border: 1px solid #d8e0e5;
+border-radius: 9px;
+outline: none;
+background: #fff;
+color: #37474f;
+font-family: inherit;
+font-size: 14px;
+transition:
+border-color .2s ease,
+box-shadow .2s ease;
+}
 
-    padding: 11px 13px;
-
-    border: 1px solid #d5dce2;
-
-    border-radius: 9px;
-
-    outline: none;
-
+.form-group input:hover {
+border-color: #b9c8d1;
 }
 
 .form-group input:focus {
-
-    border-color: #244f70;
-
+border-color: #244f70;
+box-shadow: 0 0 0 3px rgba(36, 79, 112, .09);
 }
 
-
-/* =========================================
-   FILTER BUTTON
-========================================= */
+/* =========================================================
+FILTER BUTTON
+========================================================= */
 
 .filter-buttons {
-
-    display: flex;
-
-    gap: 8px;
-
+display: flex;
+gap: 8px;
 }
 
 .btn-filter,
 .btn-reset {
-
-    padding: 11px 16px;
-
-    border-radius: 9px;
-
-    border: none;
-
-    font-weight: bold;
-
-    text-decoration: none;
-
-    cursor: pointer;
-
+min-height: 44px;
+padding: 10px 16px;
+border-radius: 9px;
+border: 0;
+font-family: inherit;
+font-size: 13px;
+font-weight: 700;
+text-decoration: none;
+cursor: pointer;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 6px;
+white-space: nowrap;
+transition: .2s ease;
 }
 
 .btn-filter {
+background: #244f70;
+color: #fff;
+}
 
-    background: #244f70;
-
-    color: white;
-
+.btn-filter:hover {
+background: #1c405b;
 }
 
 .btn-reset {
-
-    background: #e9edf0;
-
-    color: #444;
-
+background: #edf1f3;
+color: #45545d;
 }
 
+.btn-reset:hover {
+background: #dfe6ea;
+}
 
-/* =========================================
-   SUMMARY
-========================================= */
+/* =========================================================
+SUMMARY
+========================================================= */
 
 .summary-card {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    background: white;
-
-    padding: 18px 22px;
-
-    border-radius: 15px;
-
-    margin-bottom: 20px;
-
-    box-shadow:
-        0 4px 20px rgba(0,0,0,.07);
-
-    width: fit-content;
-
+width: fit-content;
+max-width: 100%;
+min-width: 220px;
+display: flex;
+align-items: center;
+gap: 14px;
+padding: 15px 19px;
+margin-bottom: 18px;
+border-radius: 14px;
 }
 
 .summary-icon {
-
-    width: 48px;
-
-    height: 48px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: #eaf3f9;
-
-    border-radius: 12px;
-
-    font-size: 24px;
-
+width: 46px;
+height: 46px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+background: #eaf3f9;
+border-radius: 11px;
+font-size: 22px;
 }
 
-.summary-card span {
-
-    display: block;
-
-    color: #777;
-
-    font-size: 13px;
-
+.summary-content span {
+display: block;
+color: #7b878e;
+font-size: 12px;
 }
 
-.summary-card strong {
-
-    display: block;
-
-    margin-top: 3px;
-
-    color: #244f70;
-
-    font-size: 20px;
-
+.summary-content strong {
+display: flex;
+align-items: baseline;
+gap: 5px;
+margin-top: 3px;
+color: #244f70;
+font-size: 20px;
+line-height: 1.2;
 }
 
+.summary-content strong small {
+font-size: 12px;
+font-weight: 600;
+color: #71808a;
+}
 
-/* =========================================
-   TABLE
-========================================= */
+/* =========================================================
+TABLE CARD
+========================================================= */
 
 .table-card {
-
-    background: white;
-
-    border-radius: 15px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 4px 20px rgba(0,0,0,.07);
-
+border-radius: 15px;
+overflow: hidden;
 }
 
 .table-header {
-
-    padding: 20px 22px;
-
-    border-bottom: 1px solid #eee;
-
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 15px;
+padding: 19px 22px;
+border-bottom: 1px solid #edf0f2;
 }
 
 .table-header h2 {
-
-    margin: 0;
-
-    color: #244f70;
-
-    font-size: 19px;
-
+margin: 0;
+color: #244f70;
+font-size: 18px;
+font-weight: 700;
 }
 
 .table-header p {
-
-    margin-top: 5px;
-
-    color: #777;
-
-    font-size: 13px;
-
+margin: 5px 0 0;
+color: #89939a;
+font-size: 12px;
 }
 
+.filter-status {
+flex-shrink: 0;
+padding: 7px 10px;
+border-radius: 8px;
+background: #eef6fb;
+color: #244f70;
+font-size: 11px;
+font-weight: 700;
+}
+
+/* =========================================================
+TABLE
+========================================================= */
+
 .table-wrapper {
+width: 100%;
+overflow-x: auto;
+-webkit-overflow-scrolling: touch;
+}
 
-    width: 100%;
+.table-wrapper::-webkit-scrollbar {
+height: 7px;
+}
 
-    overflow-x: auto;
+.table-wrapper::-webkit-scrollbar-track {
+background: #f1f3f5;
+}
 
+.table-wrapper::-webkit-scrollbar-thumb {
+background: #b9c5cc;
+border-radius: 10px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+background: #9eabb3;
 }
 
 table {
-
-    width: 100%;
-
-    border-collapse: collapse;
-
+width: 100%;
+min-width: 900px;
+border-collapse: collapse;
+font-size: 13px;
 }
 
 thead {
-
-    background: #244f70;
-
-    color: white;
-
+background: #244f70;
+color: #fff;
 }
 
 th,
 td {
+padding: 13px 15px;
+text-align: left;
+border-bottom: 1px solid #edf0f2;
+vertical-align: middle;
+white-space: nowrap;
+}
 
-    padding: 14px 15px;
+th {
+font-size: 12px;
+font-weight: 700;
+letter-spacing: .1px;
+}
 
-    text-align: left;
+td {
+color: #4c5960;
+}
 
-    border-bottom: 1px solid #eee;
-
-    white-space: nowrap;
-
+tbody tr {
+transition: background .15s ease;
 }
 
 tbody tr:hover {
-
-    background: #f7fafc;
-
+background: #f7fafc;
 }
 
+tbody tr:last-child td {
+border-bottom: 0;
+}
 
-/* =========================================
-   EMPTY
-========================================= */
+td strong {
+color: #30424d;
+font-weight: 700;
+}
+
+.col-no {
+width: 55px;
+text-align: center;
+}
+
+.col-nama {
+min-width: 150px;
+}
+
+.col-keperluan {
+min-width: 180px;
+max-width: 260px;
+}
+
+/* =========================================================
+EMPTY STATE
+========================================================= */
 
 .empty {
-
-    text-align: center;
-
-    padding: 50px !important;
-
-    color: #777;
-
+text-align: center !important;
+padding: 55px 20px !important;
+color: #7c888f !important;
+white-space: normal !important;
 }
 
 .empty-icon {
-
-    font-size: 40px;
-
-    margin-bottom: 10px;
-
+margin-bottom: 10px;
+font-size: 40px;
 }
 
+.empty strong {
+display: block;
+color: #45545d;
+font-size: 15px;
+}
 
-/* =========================================
-   PAGINATION
-========================================= */
+.empty p {
+margin: 6px 0 0;
+color: #8a969d;
+font-size: 12px;
+}
+
+/* =========================================================
+PAGINATION
+========================================================= */
 
 .pagination {
+padding: 18px 20px;
+border-top: 1px solid #edf0f2;
+overflow-x: auto;
+}
 
-    padding: 20px;
+/* =========================================================
+TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+.laporan-page {
+    padding: 24px 20px;
+}
+
+.filter-grid {
+    grid-template-columns: 1fr 1fr;
+}
+
+.filter-buttons {
+    grid-column: 1 / -1;
+}
+
+.btn-filter,
+.btn-reset {
+    flex: 1;
+}
 
 }
 
+/* =========================================================
+MOBILE
+========================================================= */
 
-/* =========================================
-   MOBILE
-========================================= */
+@media (max-width: 600px) {
 
-@media (max-width: 700px) {
+.laporan-page {
+    padding: 16px 10px 25px;
+}
 
-    .laporan-page {
+/* HEADER */
 
-        padding: 20px 10px;
+.page-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 13px;
+    margin-bottom: 17px;
+}
 
-    }
+.page-header h1 {
+    font-size: 21px;
+}
 
-    .page-header {
+.page-header p {
+    margin-top: 5px;
+    font-size: 12px;
+}
 
-        align-items: flex-start;
+.btn-cetak {
+    width: 100%;
+    min-height: 43px;
+}
 
-        gap: 15px;
+/* FILTER */
 
-    }
+.filter-card {
+    padding: 16px;
+    margin-bottom: 14px;
+    border-radius: 13px;
+}
 
-    .page-header h1 {
+.filter-title {
+    margin-bottom: 15px;
+}
 
-        font-size: 22px;
+.filter-title-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 17px;
+}
 
-    }
+.filter-title h2 {
+    font-size: 15px;
+}
 
-    .filter-grid {
+.filter-title p {
+    font-size: 11px;
+}
 
-        grid-template-columns: 1fr;
+.filter-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
 
-    }
+.form-group input {
+    height: 43px;
+}
 
-    .filter-buttons {
+.filter-buttons {
+    width: 100%;
+    grid-column: auto;
+    margin-top: 2px;
+}
 
-        width: 100%;
+.btn-filter,
+.btn-reset {
+    flex: 1;
+    min-height: 43px;
+}
 
-    }
+/* SUMMARY */
 
-    .btn-filter,
-    .btn-reset {
+.summary-card {
+    width: 100%;
+    min-width: 0;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    border-radius: 13px;
+}
 
-        flex: 1;
+.summary-icon {
+    width: 43px;
+    height: 43px;
+    font-size: 20px;
+}
 
-        text-align: center;
+.summary-content strong {
+    font-size: 19px;
+}
 
-    }
+/* TABLE HEADER */
+
+.table-card {
+    border-radius: 13px;
+}
+
+.table-header {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 16px;
+    gap: 9px;
+}
+
+.table-header h2 {
+    font-size: 16px;
+}
+
+.table-header p {
+    font-size: 11px;
+}
+
+.filter-status {
+    font-size: 10px;
+}
+
+/* TABLE */
+
+table {
+    min-width: 850px;
+    font-size: 12px;
+}
+
+th,
+td {
+    padding: 12px 13px;
+}
+
+.empty {
+    padding: 45px 15px !important;
+}
+
+.empty-icon {
+    font-size: 34px;
+}
+
+/* PAGINATION */
+
+.pagination {
+    padding: 15px;
+}
 
 }
 
+/* =========================================================
+VERY SMALL MOBILE
+========================================================= */
 
-/* =========================================
-   PRINT
-========================================= */
+@media (max-width: 380px) {
+
+.laporan-page {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.page-header h1 {
+    font-size: 19px;
+}
+
+.filter-card {
+    padding: 14px;
+}
+
+.filter-buttons {
+    gap: 6px;
+}
+
+.btn-filter,
+.btn-reset {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 12px;
+}
+
+}
+
+/* =========================================================
+PRINT
+========================================================= */
 
 @media print {
 
-    .sidebar,
-    .btn-cetak,
-    .filter-card,
-    .pagination {
-
-        display: none !important;
-
-    }
-
-    .laporan-page {
-
-        padding: 0;
-
-    }
-
-    .table-card {
-
-        box-shadow: none;
-
-    }
-
-    .table-header {
-
-        text-align: center;
-
-    }
-
-    body {
-
-        background: white !important;
-
-    }
-
+@page {
+    size: landscape;
+    margin: 10mm;
 }
 
+body {
+    background: #fff !important;
+}
+
+.sidebar,
+.btn-cetak,
+.filter-card,
+.pagination,
+.filter-status {
+    display: none !important;
+}
+
+.laporan-page {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+}
+
+.page-header {
+    margin-bottom: 15px;
+}
+
+.page-header h1 {
+    font-size: 22px;
+}
+
+.page-header p {
+    font-size: 11px;
+}
+
+.summary-card {
+    margin-bottom: 15px;
+    box-shadow: none;
+    border: 1px solid #ddd;
+}
+
+.table-card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    overflow: visible;
+}
+
+.table-header {
+    text-align: center;
+    justify-content: center;
+}
+
+.table-wrapper {
+    overflow: visible;
+}
+
+table {
+    width: 100%;
+    min-width: 0;
+    font-size: 10px;
+}
+
+th,
+td {
+    padding: 7px 6px;
+    white-space: normal;
+}
+
+thead {
+    background: #244f70 !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+tbody tr:hover {
+    background: transparent;
+}
+
+}
 </style>
 
 @endsection

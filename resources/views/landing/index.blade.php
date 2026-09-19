@@ -318,7 +318,7 @@
                 dan praktis melalui sistem digital.
             </p>
 
-            <a href="{{ url('/bukutamu/create') }}" class="btn-tamu">
+            <a href="{{ route('petugas.login') }}" class="btn-tamu">
                 📝 Isi Data Kunjungan
                 <span>→</span>
             </a>
